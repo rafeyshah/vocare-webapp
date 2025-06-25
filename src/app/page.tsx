@@ -1,13 +1,15 @@
-"use client";
+// page.tsx
+"use client"
 
-import { Button } from "@/components/ui/button"
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import CalendarWeek from "@/components/CalendarWeek"
 import CalendarMonth from "@/components/CalendarMonth"
 import AppointmentList from "@/components/AppointmentList"
 
 export default function CalendarPage() {
   const [view, setView] = useState<'week' | 'month' | 'list'>('week')
+  const [selectedDate, setSelectedDate] = useState(new Date("2025-06-10"))
 
   return (
     <div className="p-4">
@@ -16,7 +18,8 @@ export default function CalendarPage() {
         <div className="flex gap-2 items-center">
           <input
             type="date"
-            defaultValue="2025-06-10"
+            value={selectedDate.toISOString().split("T")[0]}
+            onChange={(e) => setSelectedDate(new Date(e.target.value))}
             className="border p-2 rounded"
           />
           <div className="flex gap-1 ml-2">
@@ -38,7 +41,7 @@ export default function CalendarPage() {
       </div>
 
       {/* View Switcher */}
-      {view === 'week' && <CalendarWeek />}
+      {view === 'week' && <CalendarWeek weekStartDate={selectedDate} />}
       {view === 'month' && <CalendarMonth />}
       {view === 'list' && <AppointmentList />}
     </div>
