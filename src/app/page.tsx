@@ -1,4 +1,3 @@
-// page.tsx
 "use client"
 
 import { useState } from "react"
@@ -6,10 +5,12 @@ import { Button } from "@/components/ui/button"
 import CalendarWeek from "@/components/CalendarWeek"
 import CalendarMonth from "@/components/CalendarMonth"
 import AppointmentList from "@/components/AppointmentList"
+import NewAppointmentModal from "@/components/NewAppointmentModal"
 
 export default function CalendarPage() {
   const [view, setView] = useState<'week' | 'month' | 'list'>('week')
   const [selectedDate, setSelectedDate] = useState(new Date("2025-06-10"))
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <div className="p-4">
@@ -36,7 +37,7 @@ export default function CalendarPage() {
         </div>
         <div className="flex gap-2">
           <Button variant="outline">Termine filtern</Button>
-          <Button>+ Neuer Termin</Button>
+          <Button onClick={() => setModalOpen(true)}>+ Neuer Termin</Button>
         </div>
       </div>
 
@@ -44,6 +45,9 @@ export default function CalendarPage() {
       {view === 'week' && <CalendarWeek weekStartDate={selectedDate} />}
       {view === 'month' && <CalendarMonth />}
       {view === 'list' && <AppointmentList />}
+
+      {/* Modal */}
+      <NewAppointmentModal open={modalOpen} setOpen={setModalOpen} />
     </div>
   )
 }
