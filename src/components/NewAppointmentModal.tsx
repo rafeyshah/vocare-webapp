@@ -28,8 +28,8 @@ export default function NewAppointmentModal({
         end: "",
         location: "",
         notes: "",
-        category_id: "",
-        patient_id: "",
+        category: "",
+        patient: "",
     });
 
     const [categories, setCategories] = useState<{ id: string; label: string }[]>([]);
@@ -76,8 +76,8 @@ export default function NewAppointmentModal({
                 end: formatISO(endDate),
                 location: form.location,
                 notes: form.notes,
-                category: form.category_id || null,
-                patient: form.patient_id || null,
+                category: form.category || null,
+                patient: form.patient || null,
             },
         ]);
 
@@ -136,7 +136,7 @@ export default function NewAppointmentModal({
 
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label className="text-right">Kategorie</Label>
-                        <Select value={form.category_id} onValueChange={(value) => setForm({ ...form, category_id: value })}>
+                        <Select value={form.category} onValueChange={(value) => setForm({ ...form, category: value })}>
                             <SelectTrigger className="col-span-3">
                                 <SelectValue placeholder="Kategorie wählen" />
                             </SelectTrigger>
@@ -150,7 +150,7 @@ export default function NewAppointmentModal({
 
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label className="text-right">Patient</Label>
-                        <Select value={form.patient_id} onValueChange={(value) => setForm({ ...form, patient_id: value })}>
+                        <Select value={form.patient} onValueChange={(value) => setForm({ ...form, patient: value })}>
                             <SelectTrigger className="col-span-3">
                                 <SelectValue placeholder="Patient wählen" />
                             </SelectTrigger>

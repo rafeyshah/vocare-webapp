@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { fetchAppointments } from "@/lib/fetchAppointments";
 
-export default function CalendarWeek({ weekStartDate }: { weekStartDate: Date }) {
+export default function CalendarWeek({ weekStartDate, filters }: { weekStartDate: Date, filters?: any }) {
     const [appointments, setAppointments] = useState<any[]>([]);
 
     useEffect(() => {
@@ -11,11 +11,15 @@ export default function CalendarWeek({ weekStartDate }: { weekStartDate: Date })
         const to = new Date(from);
         to.setDate(from.getDate() + 6);
         const load = async () => {
-            const data = await fetchAppointments(from.toISOString().split("T")[0], to.toISOString().split("T")[0]);
+            const data = await fetchAppointments(
+                from.toISOString().split("T")[0],
+                to.toISOString().split("T")[0],
+                filters
+            );
             setAppointments(data);
         };
         load();
-    }, [weekStartDate]);
+    }, [weekStartDate, filters]);
 
     const days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 

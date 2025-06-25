@@ -6,11 +6,20 @@ import CalendarWeek from "@/components/CalendarWeek"
 import CalendarMonth from "@/components/CalendarMonth"
 import AppointmentList from "@/components/AppointmentList"
 import NewAppointmentModal from "@/components/NewAppointmentModal"
+import FilterModal from "@/components/FilterModal"
 
 export default function CalendarPage() {
   const [view, setView] = useState<'week' | 'month' | 'list'>('week')
   const [selectedDate, setSelectedDate] = useState(new Date("2025-06-10"))
   const [modalOpen, setModalOpen] = useState(false)
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    category: "",
+    patient: "",
+    start: "",
+    end: "",
+  });
+
 
   return (
     <div className="p-4">
@@ -36,18 +45,25 @@ export default function CalendarPage() {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">Termine filtern</Button>
+          <Button variant="outline" onClick={() => setFiltersOpen(true)}>Termine filtern</Button>
           <Button onClick={() => setModalOpen(true)}>+ Neuer Termin</Button>
         </div>
       </div>
 
       {/* View Switcher */}
-      {view === 'week' && <CalendarWeek weekStartDate={selectedDate} />}
+      {view === 'week' && <CalendarWeek weekStartDate={selectedDate} filters={filters} />}
       {view === 'month' && <CalendarMonth />}
       {view === 'list' && <AppointmentList />}
 
       {/* Modal */}
       <NewAppointmentModal open={modalOpen} setOpen={setModalOpen} />
+      <FilterModal
+        open={filtersOpen}
+        setOpen={setFiltersOpen}
+        filters={filters}
+        setFilters={setFilters}
+      />
+
     </div>
   )
 }
