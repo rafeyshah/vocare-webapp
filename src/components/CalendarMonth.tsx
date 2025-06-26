@@ -4,26 +4,44 @@ import { useEffect, useState } from "react";
 import { Clock, Home, User } from "lucide-react";
 import { fetchAppointments } from "@/lib/fetchAppointments";
 
-export default function CalendarMonth() {
+export default function CalendarMonth({
+    filters,
+    weekStartMonth,
+    onNextMonth,
+}: {
+    filters?: any;
+    weekStartMonth: Date;
+    onNextMonth?: () => void;
+}) {
     const daysOfWeek = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
-    const firstDayOffset = 5;
-    const totalDays = 30;
-    const selectedDay = 10;
+    const today = new Date();
 
     const [appointments, setAppointments] = useState<any[]>([]);
 
+    const currentMonth = weekStartMonth.getMonth();
+    const currentYear = weekStartMonth.getFullYear();
+    const startOfMonth = new Date(currentYear, currentMonth, 1);
+    const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+    const selectedDay = today.getDate();
+    const firstDayOffset = (startOfMonth.getDay() + 6) % 7; // Monday as first day
+    const totalDays = endOfMonth.getDate();
+
     useEffect(() => {
         const load = async () => {
-            const data = await fetchAppointments("2025-06-01", "2025-06-30");
+            const data = await fetchAppointments(
+                startOfMonth.toISOString().split("T")[0],
+                endOfMonth.toISOString().split("T")[0],
+                filters
+            );
             setAppointments(data);
         };
         load();
-    }, []);
+    }, [filters, currentMonth, currentYear]);
 
     return (
-        <div className="flex flex-col h-screen overflow-hidden">
-            <div className="flex flex-1 overflow-hidden">
-                <div className="flex-[3] min-w-0 overflow-auto px-2 py-4 bg-white">
+        <div className="flex flex-col h-screen">
+            <div className="flex flex-1">
+                <div className="flex-[3] min-w-0 px-2 py-4 bg-white">
                     <div className="border-t border-b grid grid-cols-7 text-xs text-center text-gray-500 uppercase">
                         {daysOfWeek.map((day) => (
                             <div key={day} className="py-2 border-r last:border-r-0">
@@ -40,15 +58,16 @@ export default function CalendarMonth() {
                         {Array.from({ length: totalDays }).map((_, i) => {
                             const day = i + 1;
                             const dayAppointments = appointments.filter((a) => new Date(a.start).getDate() === day);
+                            const isToday = today.getFullYear() === currentYear && today.getMonth() === currentMonth && today.getDate() === day;
 
                             return (
                                 <div
                                     key={day}
                                     className="relative border-b border-r p-1 h-[110px] bg-white overflow-hidden"
                                 >
-                                    <div className={`text-xs font-semibold w-fit px-2 py-0.5 rounded-full ${day === selectedDay
-                                            ? 'bg-gray-900 text-white'
-                                            : 'text-gray-800'
+                                    <div className={`text-xs font-semibold w-fit px-2 py-0.5 rounded-full ${isToday
+                                        ? 'bg-gray-900 text-white'
+                                        : 'text-gray-800'
                                         }`}>
                                         {day.toString().padStart(2, "0")}
                                     </div>
@@ -79,9 +98,13 @@ export default function CalendarMonth() {
                     </div>
 
                     <div className="mt-4 text-center">
-                        <button className="px-3 py-1 border rounded text-sm text-gray-600 bg-white hover:bg-gray-100">
+                        <button
+                            className="px-3 py-1 border rounded text-sm text-gray-600 bg-white hover:bg-gray-100"
+                            onClick={onNextMonth}
+                        >
                             Nächsten Monat laden
                         </button>
+
                     </div>
                 </div>
 

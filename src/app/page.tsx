@@ -10,7 +10,7 @@ import FilterModal from "@/components/FilterModal"
 
 export default function CalendarPage() {
   const [view, setView] = useState<'week' | 'month' | 'list'>('week')
-  const [selectedDate, setSelectedDate] = useState(new Date("2025-06-10"))
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [modalOpen, setModalOpen] = useState(false)
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState({
@@ -52,7 +52,18 @@ export default function CalendarPage() {
 
       {/* View Switcher */}
       {view === 'week' && <CalendarWeek weekStartDate={selectedDate} filters={filters} />}
-      {view === 'month' && <CalendarMonth />}
+      {view === 'month' && (
+        <CalendarMonth
+          filters={filters}
+          weekStartMonth={selectedDate}
+          onNextMonth={() => {
+            const nextMonth = new Date(selectedDate);
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            setSelectedDate(nextMonth);
+          }}
+        />
+      )}
+
       {view === 'list' && <AppointmentList />}
 
       {/* Modal */}
