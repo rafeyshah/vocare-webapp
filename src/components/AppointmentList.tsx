@@ -9,19 +9,20 @@ import { toast } from "sonner"
 export default function AppointmentList({
     filters,
     onEdit,
+    selectedDate
 }: {
     filters?: any
     onEdit?: (appointment: any) => void
+    selectedDate: Date
 }) {
     const [appointments, setAppointments] = useState<any[]>([])
 
     useEffect(() => {
         const load = async () => {
-            const today = new Date()
-            const start = new Date(today.getFullYear(), today.getMonth(), 1)
+            const start = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
                 .toISOString()
                 .split("T")[0]
-            const end = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+            const end = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0)
                 .toISOString()
                 .split("T")[0]
 

@@ -78,7 +78,7 @@ export default function CalendarPage() {
         <CalendarMonth selectedDate={selectedDate} filters={filters} key={refreshKey} />
       )}
       {view === "list" && (
-        <AppointmentList filters={filters} onEdit={handleEdit} key={refreshKey} />
+        <AppointmentList selectedDate={selectedDate} filters={filters} onEdit={handleEdit} key={refreshKey} />
       )}
 
       <NewAppointmentModal
