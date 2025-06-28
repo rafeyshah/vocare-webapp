@@ -79,27 +79,14 @@ export default function CalendarPage() {
         <AppointmentList filters={filters} onEdit={handleEdit} />
       )}
 
-      {/* Modals */}
-      {/* {showNewModal && (
-        <NewAppointmentModal
-          onClose={() => {
-            setShowNewModal(false)
-            setEditingAppointment(null)
-          }}
-          existing={editingAppointment}
-        />
-      )} */}
-
-      <NewAppointmentModal open={showNewModal} setOpen={setShowNewModal} />
-
-{/*         
-      {showFilter && (
-        <FilterModal
-          initialFilters={filters}
-          onClose={() => setShowFilter(false)}
-          onApply={(f) => setFilters(f)}
-        />
-      )} */}
+      <NewAppointmentModal
+        open={showNewModal}
+        setOpen={(val) => {
+          setShowNewModal(val);
+          if (!val) setEditingAppointment(null);
+        }}
+        existing={editingAppointment}
+      />
 
       <FilterModal
         open={showFilter}
