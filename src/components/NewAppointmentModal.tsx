@@ -18,11 +18,13 @@ import { formatISO } from "date-fns";
 export default function NewAppointmentModal({
     open,
     setOpen,
-    existing, // <== add this
+    existing,
+    onRefresh // <== add this
 }: {
     open: boolean;
     setOpen: (value: boolean) => void;
-    existing?: any; // <== add this
+    existing?: any;
+    onRefresh?: () => void;
 }) {
     const [form, setForm] = useState({
         title: "",
@@ -153,6 +155,7 @@ export default function NewAppointmentModal({
             patient: "",
         });
         setOpen(false);
+        onRefresh?.();
     };
 
     return (

@@ -15,6 +15,9 @@ export default function CalendarPage() {
   const [showFilter, setShowFilter] = useState(false)
   const [showNewModal, setShowNewModal] = useState(false)
   const [editingAppointment, setEditingAppointment] = useState<any>(null)
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const refreshAppointments = () => setRefreshKey(prev => prev + 1);
 
   const handleEdit = (appointment: any) => {
     setEditingAppointment(appointment)
@@ -68,15 +71,14 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      {/* View Switcher */}
       {view === "week" && (
-        <CalendarWeek weekStartDate={selectedDate} filters={filters} />
+        <CalendarWeek weekStartDate={selectedDate} filters={filters} key={refreshKey} />
       )}
       {view === "month" && (
-        <CalendarMonth selectedDate={selectedDate} filters={filters} />
+        <CalendarMonth selectedDate={selectedDate} filters={filters} key={refreshKey} />
       )}
       {view === "list" && (
-        <AppointmentList filters={filters} onEdit={handleEdit} />
+        <AppointmentList filters={filters} onEdit={handleEdit} key={refreshKey} />
       )}
 
       <NewAppointmentModal
@@ -86,7 +88,9 @@ export default function CalendarPage() {
           if (!val) setEditingAppointment(null);
         }}
         existing={editingAppointment}
+        onRefresh={refreshAppointments}
       />
+
 
       <FilterModal
         open={showFilter}

@@ -30,7 +30,13 @@ export default function CalendarWeek({ weekStartDate, filters }: { weekStartDate
     };
 
     const startHour = 6;
-    const endHour = 20;
+    // const endHour = 20;
+    const latestEndHour = Math.max(
+        ...appointments.map((a) => new Date(a.end).getHours()),
+        20 // default fallback
+    );
+    const endHour = Math.max(latestEndHour, 20);
+
     const hourHeight = 80;
     const hourSlots = Array.from({ length: endHour - startHour + 1 }, (_, i) => startHour + i);
 
