@@ -4,21 +4,19 @@ import { useEffect, useState } from "react";
 import { Clock, Home, User } from "lucide-react";
 import { fetchAppointments } from "@/lib/fetchAppointments";
 
-export default function AppointmentList() {
+export default function AppointmentList({ filters }: { filters?: any }) {
     const [appointments, setAppointments] = useState<any[]>([]);
 
     useEffect(() => {
         const load = async () => {
             const start = "2025-06-01";
             const end = "2025-06-30";
-            const data = await fetchAppointments(start, end);
-            console.log("Data: ", data)
+            const data = await fetchAppointments(start, end, filters);
             setAppointments(data);
         };
         load();
-    }, []);
+    }, [filters]);
 
-    // Group appointments by date
     const grouped = appointments.reduce((acc, appt) => {
         const date = new Date(appt.start).toLocaleDateString("de-DE", {
             weekday: "long",
@@ -49,7 +47,6 @@ export default function AppointmentList() {
                         <div
                             key={idx}
                             className="flex justify-between items-start bg-white rounded-lg p-4 mb-3 shadow-sm w-full"
-                            // style={{ borderColor: item.category?.color || "#ddd" }}
                         >
                             <div className="w-full">
                                 <div className="flex items-center gap-2 mb-1">
@@ -63,8 +60,14 @@ export default function AppointmentList() {
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-gray-700 mb-1">
                                     <Clock className="w-4 h-4" />
-                                    {new Date(item.start).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })} -
-                                    {new Date(item.end).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}
+                                    {new Date(item.start).toLocaleTimeString("de-DE", {
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    })} -{" "}
+                                    {new Date(item.end).toLocaleTimeString("de-DE", {
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    })}
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-gray-700 mb-1">
                                     <Home className="w-4 h-4" />

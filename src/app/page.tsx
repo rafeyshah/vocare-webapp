@@ -64,7 +64,8 @@ export default function CalendarPage() {
         />
       )}
 
-      {view === 'list' && <AppointmentList />}
+      {view === 'list' && <AppointmentList filters={filters} />}
+
 
       {/* Modal */}
       <NewAppointmentModal open={modalOpen} setOpen={setModalOpen} />
