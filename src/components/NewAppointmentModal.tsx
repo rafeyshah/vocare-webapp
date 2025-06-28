@@ -38,6 +38,8 @@ export default function NewAppointmentModal({
     const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
+        console.log("Called");
+        
         const fetchData = async () => {
             const { data: categories } = await supabase.from("categories").select("id, label");
             const { data: patients } = await supabase.from("patients").select("id, firstname, lastname");

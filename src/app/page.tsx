@@ -9,17 +9,17 @@ import NewAppointmentModal from "@/components/NewAppointmentModal"
 import FilterModal from "@/components/FilterModal"
 
 export default function CalendarPage() {
-  const [view, setView] = useState<'week' | 'month' | 'list'>('week')
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [modalOpen, setModalOpen] = useState(false)
-  const [filtersOpen, setFiltersOpen] = useState(false);
-  const [filters, setFilters] = useState({
-    category: "",
-    patient: "",
-    start: "",
-    end: "",
-  });
+  const [view, setView] = useState<"week" | "month" | "list">("week")
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [filters, setFilters] = useState<any>({})
+  const [showFilter, setShowFilter] = useState(false)
+  const [showNewModal, setShowNewModal] = useState(false)
+  const [editingAppointment, setEditingAppointment] = useState<any>(null)
 
+  const handleEdit = (appointment: any) => {
+    setEditingAppointment(appointment)
+    setShowNewModal(true)
+  }
 
   return (
     <div className="p-4">
@@ -33,45 +33,77 @@ export default function CalendarPage() {
             className="border p-2 rounded"
           />
           <div className="flex gap-1 ml-2">
-            <Button variant={view === 'list' ? 'default' : 'outline'} onClick={() => setView('list')}>
+            <Button
+              variant={view === "list" ? "default" : "outline"}
+              onClick={() => setView("list")}
+            >
               Liste
             </Button>
-            <Button variant={view === 'week' ? 'default' : 'outline'} onClick={() => setView('week')}>
+            <Button
+              variant={view === "week" ? "default" : "outline"}
+              onClick={() => setView("week")}
+            >
               Woche
             </Button>
-            <Button variant={view === 'month' ? 'default' : 'outline'} onClick={() => setView('month')}>
+            <Button
+              variant={view === "month" ? "default" : "outline"}
+              onClick={() => setView("month")}
+            >
               Monat
             </Button>
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setFiltersOpen(true)}>Termine filtern</Button>
-          <Button onClick={() => setModalOpen(true)}>+ Neuer Termin</Button>
+          <Button variant="outline" onClick={() => setShowFilter(true)}>
+            Termine filtern
+          </Button>
+          <Button
+            onClick={() => {
+              setEditingAppointment(null)
+              setShowNewModal(true)
+            }}
+          >
+            + Neuer Termin
+          </Button>
         </div>
       </div>
 
       {/* View Switcher */}
-      {view === 'week' && <CalendarWeek weekStartDate={selectedDate} filters={filters} />}
-      {view === 'month' && (
-        <CalendarMonth
-          filters={filters}
-          weekStartMonth={selectedDate}
-          onNextMonth={() => {
-            const nextMonth = new Date(selectedDate);
-            nextMonth.setMonth(nextMonth.getMonth() + 1);
-            setSelectedDate(nextMonth);
-          }}
-        />
+      {view === "week" && (
+        <CalendarWeek weekStartDate={selectedDate} filters={filters} />
+      )}
+      {view === "month" && (
+        <CalendarMonth selectedDate={selectedDate} filters={filters} />
+      )}
+      {view === "list" && (
+        <AppointmentList filters={filters} onEdit={handleEdit} />
       )}
 
-      {view === 'list' && <AppointmentList filters={filters} />}
+      {/* Modals */}
+      {/* {showNewModal && (
+        <NewAppointmentModal
+          onClose={() => {
+            setShowNewModal(false)
+            setEditingAppointment(null)
+          }}
+          existing={editingAppointment}
+        />
+      )} */}
 
+      <NewAppointmentModal open={showNewModal} setOpen={setShowNewModal} />
 
-      {/* Modal */}
-      <NewAppointmentModal open={modalOpen} setOpen={setModalOpen} />
+{/*         
+      {showFilter && (
+        <FilterModal
+          initialFilters={filters}
+          onClose={() => setShowFilter(false)}
+          onApply={(f) => setFilters(f)}
+        />
+      )} */}
+
       <FilterModal
-        open={filtersOpen}
-        setOpen={setFiltersOpen}
+        open={showFilter}
+        setOpen={setShowFilter}
         filters={filters}
         setFilters={setFilters}
       />

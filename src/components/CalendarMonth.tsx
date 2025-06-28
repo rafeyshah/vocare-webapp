@@ -18,8 +18,8 @@ export default function CalendarMonth({
 
     const [appointments, setAppointments] = useState<any[]>([]);
 
-    const currentMonth = weekStartMonth.getMonth();
-    const currentYear = weekStartMonth.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
     const startOfMonth = new Date(currentYear, currentMonth, 1);
     const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
     const selectedDay = today.getDate();
