@@ -4,13 +4,10 @@
 A full-stack calendar-based appointment management system built as a prototype for the **Vocare Fullstack Developer Challenge**.  
 This solution allows healthcare staff to view, create, edit, and filter appointments across **monthly**, **weekly**, and **list** views.
 
----
-
 ## 🌐 Live Preview
 
 🔗 [Deployed on Vercel](https://vocare-webapp-qq3m.vercel.app/)  
 
----
 
 ## 🧱 Tech Stack
 
@@ -20,7 +17,6 @@ This solution allows healthcare staff to view, create, edit, and filter appointm
 - **shadcn/ui** (UI components like buttons, cards, modal)
 - **Supabase** (Database and API)
 
----
 
 ## ✅ Features Implemented
 
@@ -31,7 +27,7 @@ This solution allows healthcare staff to view, create, edit, and filter appointm
 - ✅ **Supabase integration** for all CRUD operations
 - ✅ **Filtering appointments** by category, patient, and date range
 - ✅ **Responsive design** for mobile, tablet, and desktop
----
+
 
 ## 🔧 Features In Progress / Planned
 
@@ -41,7 +37,6 @@ This solution allows healthcare staff to view, create, edit, and filter appointm
 - 📡 **Real-time Supabase sync** via `supabase.channel()`
 - 🧪 **Unit testing** with Vitest or Jest
 
----
 
 ## 🗃 Supabase Integration
 
@@ -55,7 +50,6 @@ This app connects to Supabase for:
 
 💡 The schema matches the official challenge schema and is respected throughout.
 
----
 
 ## 📁 Folder Structure
 
@@ -71,7 +65,6 @@ src/
 │   └── ui/                # Shared UI components
 ```
 
----
 
 ## 🚀 Getting Started
 
@@ -105,7 +98,6 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 npm run dev
 ```
 
----
 
 ## 📝 TypeScript Notes
 
@@ -122,7 +114,6 @@ npm run dev
   ```
 - Found in `shared/types/appointment.ts`, `patient.ts`, and `category.ts`
 
----
 
 ## 🤝 Acknowledgements
 
@@ -131,7 +122,6 @@ npm run dev
 - [TailwindCSS](https://tailwindcss.com/)
 - Vocare Fullstack Challenge Team
 
----
 
 ## 📬 Contact
 
