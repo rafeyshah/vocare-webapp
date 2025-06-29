@@ -6,14 +6,13 @@ import { fetchAppointments } from "@/shared/lib/fetchAppointments"
 import { deleteAppointment } from "@/shared/lib/deleteAppointment"
 import { toast } from "sonner"
 import { Appointment } from "@/shared/types/appointment"
-import { Filter } from "@/shared/types/filters"
 
 export default function AppointmentList({
     filters,
     onEdit,
     selectedDate
 }: {
-    filters?: Filter
+    filters?: any
     onEdit?: (appointment: Appointment) => void
     selectedDate: Date
 }) {
@@ -62,8 +61,7 @@ export default function AppointmentList({
         if (!acc[date]) acc[date] = []
         acc[date].push(appt)
         return acc
-    }, {} as Record<string, Appointment[]>)
-
+    }, {} as Record<string, any[]>)
 
     return (
         <div className="bg-gray-50 p-4 rounded-md">

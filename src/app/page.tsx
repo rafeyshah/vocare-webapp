@@ -8,21 +8,20 @@ import AppointmentList from "@/modules/appointment/components/AppointmentList"
 import NewAppointmentModal from "@/modules/appointment/components/NewAppointmentModal"
 import FilterModal from "@/modules/appointment/components/FilterModal"
 import { Menu } from "lucide-react"
-import { Appointment } from "@/shared/types/appointment"
 
 export default function CalendarPage() {
   const [view, setView] = useState<"week" | "month" | "list">("week")
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [filters, setFilters] = useState<Record<string, string | number | null>>({})
+  const [filters, setFilters] = useState<any>({})
   const [showFilter, setShowFilter] = useState(false)
   const [showNewModal, setShowNewModal] = useState(false)
-  const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null)
+  const [editingAppointment, setEditingAppointment] = useState<any>(null)
   const [refreshKey, setRefreshKey] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const refreshAppointments = () => setRefreshKey(prev => prev + 1);
 
-  const handleEdit = (appointment: Appointment) => {
+  const handleEdit = (appointment: any) => {
     setEditingAppointment(appointment)
     setShowNewModal(true)
   }
