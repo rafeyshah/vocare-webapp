@@ -7,6 +7,7 @@ import CalendarMonth from "@/components/CalendarMonth"
 import AppointmentList from "@/components/AppointmentList"
 import NewAppointmentModal from "@/components/NewAppointmentModal"
 import FilterModal from "@/components/FilterModal"
+import { Menu } from "lucide-react"
 
 export default function CalendarPage() {
   const [view, setView] = useState<"week" | "month" | "list">("week")
@@ -16,6 +17,7 @@ export default function CalendarPage() {
   const [showNewModal, setShowNewModal] = useState(false)
   const [editingAppointment, setEditingAppointment] = useState<any>(null)
   const [refreshKey, setRefreshKey] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const refreshAppointments = () => setRefreshKey(prev => prev + 1);
 
@@ -27,15 +29,24 @@ export default function CalendarPage() {
   return (
     <div className="p-4">
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex gap-2 items-center">
-          <input
-            type="date"
-            value={selectedDate.toISOString().split("T")[0]}
-            onChange={(e) => setSelectedDate(new Date(e.target.value))}
-            className="border p-2 rounded"
-          />
-          <div className="flex gap-1 ml-2">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:items-center">
+          <div className="flex justify-between w-full sm:w-auto">
+            <input
+              type="date"
+              value={selectedDate.toISOString().split("T")[0]}
+              onChange={(e) => setSelectedDate(new Date(e.target.value))}
+              className="border p-2 rounded w-full sm:w-auto"
+            />
+            <button
+              className="sm:hidden ml-2 text-gray-700"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+
+          <div className={`flex-col sm:flex sm:flex-row gap-1 ml-0 sm:ml-2 mt-2 sm:mt-0 ${menuOpen ? "flex" : "hidden sm:flex"}`}>
             <Button
               variant={view === "list" ? "default" : "outline"}
               onClick={() => setView("list")}
@@ -56,7 +67,8 @@ export default function CalendarPage() {
             </Button>
           </div>
         </div>
-        <div className="flex gap-2">
+
+        <div className={`flex-col sm:flex sm:flex-row gap-2 w-full sm:w-auto ${menuOpen ? "flex" : "hidden sm:flex"}`}>
           <Button variant="outline" onClick={() => setShowFilter(true)}>
             Termine filtern
           </Button>
