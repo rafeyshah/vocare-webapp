@@ -1,5 +1,4 @@
 import { supabase } from "./supabaseClient"
-
 export async function deleteAppointment(id: string) {
     const { error } = await supabase
         .from("appointments")

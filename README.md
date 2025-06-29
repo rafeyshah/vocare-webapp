@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🩺 Vocare WebApp – Fullstack Challenge
 
-First, run the development server:
+A full-stack calendar-based appointment management system built as a prototype for the **Vocare Fullstack Developer Challenge**.  
+This solution allows healthcare staff to view, create, edit, and filter appointments across **monthly**, **weekly**, and **list** views.
+
+---
+
+## 🌐 Live Preview
+
+🔗 [Deployed on Vercel](https://your-vercel-link.vercel.app)  
+_(Replace this with your actual Vercel deployment URL)_
+
+---
+
+## 🧱 Tech Stack
+
+- **Next.js** (App Router)
+- **TypeScript** (Fully typed)
+- **TailwindCSS**
+- **shadcn/ui** (UI components like buttons, cards, modal)
+- **Supabase** (Database and API)
+
+---
+
+## ✅ Features Implemented
+
+- ✅ **Monthly Calendar View**
+- ✅ **Weekly Calendar View (6:00–22:00)**
+- ✅ **Appointment List View**
+- ✅ **Create / Edit / Delete appointments**
+- ✅ **Supabase integration** for all CRUD operations
+- ✅ **Filtering appointments** by category, patient, and date range
+- ✅ **Responsive design** for mobile, tablet, and desktop
+---
+
+## 🔧 Features In Progress / Planned
+
+- 🔄 **Hover Cards** using `shadcn/ui` to preview appointment info
+- 🧩 **Modal validation** for creating/editing appointments
+- 🔁 **Week and month navigation** (prev/next buttons)
+- 📡 **Real-time Supabase sync** via `supabase.channel()`
+- 🧪 **Unit testing** with Vitest or Jest
+
+---
+
+## 🗃 Supabase Integration
+
+This app connects to Supabase for:
+
+- 📥 Fetching appointments from `appointments` table
+- ➕ Creating new appointments via form/modal
+- 🗑️ Deleting appointments via `deleteAppointment.ts`
+- 🎯 Filtering by category or patient
+- 🔐 Using `lib/supabaseClient.ts` for client setup
+
+💡 The schema matches the official challenge schema and is respected throughout.
+
+---
+
+## 📁 Folder Structure
+
+```
+src/
+├── app/                   # Next.js layout & entry page
+├── modules/
+│   ├── calendar/          # Weekly and monthly views
+│   └── appointment/       # Appointment logic and components
+├── shared/
+│   ├── lib/               # Supabase & utility functions
+│   ├── types/             # Fully defined TypeScript interfaces
+│   └── ui/                # Shared UI components
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone this repo
+
+```bash
+git clone https://github.com/rafeyshah/vocare-webapp.git
+cd vocare-webapp
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. Configure Supabase (Optional)
+
+> By default, it uses the shared Supabase DB.  
+> For custom setup, edit `lib/supabaseClient.ts`.
+
+```ts
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+```
+
+### 4. Run the app locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 TypeScript Notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Project now uses `strict` types (no `any` or `unknown`)
+- All appointments are typed with:
+  ```ts
+  Appointment {
+    id: string;
+    title: string;
+    start: string;
+    end: string;
+    ...
+  }
+  ```
+- Found in `shared/types/appointment.ts`, `patient.ts`, and `category.ts`
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Acknowledgements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Supabase](https://supabase.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- Vocare Fullstack Challenge Team
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📬 Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed by **Rafey Shah**  
+📧 [dev.abdulrafey@gmail.com](mailto:rafeyshah@gmail.com)  
+🌐 [github.com/rafeyshah](https://github.com/rafeyshah)

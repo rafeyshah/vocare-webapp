@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { Clock, Home, User, Pencil, Trash } from "lucide-react"
-import { fetchAppointments } from "@/lib/fetchAppointments"
-import { deleteAppointment } from "@/lib/deleteAppointment"
+import { fetchAppointments } from "@/shared/lib/fetchAppointments"
+import { deleteAppointment } from "@/shared/lib/deleteAppointment"
 import { toast } from "sonner"
+import { Appointment } from "@/shared/types/appointment"
 
 export default function AppointmentList({
     filters,
@@ -12,10 +13,10 @@ export default function AppointmentList({
     selectedDate
 }: {
     filters?: any
-    onEdit?: (appointment: any) => void
+    onEdit?: (appointment: Appointment) => void
     selectedDate: Date
 }) {
-    const [appointments, setAppointments] = useState<any[]>([])
+    const [appointments, setAppointments] = useState<Appointment[]>([])
 
     useEffect(() => {
         const load = async () => {
@@ -30,7 +31,7 @@ export default function AppointmentList({
             setAppointments(data)
         }
         load()
-    }, [filters])
+    }, [filters, selectedDate])
 
     const handleDelete = async (id: string) => {
         if (confirm("Möchten Sie diesen Termin wirklich löschen?")) {

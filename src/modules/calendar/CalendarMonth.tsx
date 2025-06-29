@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Clock, Home, User } from "lucide-react";
-import { fetchAppointments } from "@/lib/fetchAppointments";
+import { fetchAppointments } from "@/shared/lib/fetchAppointments";
 
 export default function CalendarMonth({
     filters,

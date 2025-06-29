@@ -6,12 +6,12 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { supabase } from "@/lib/supabaseClient";
+} from "@/shared/ui/dialog";
+import { Label } from "@/shared/ui/label";
+import { Button } from "@/shared/ui/button";
+import { Input } from "@/shared/ui/input";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/shared/ui/select";
+import { supabase } from "@/shared/lib/supabaseClient";
 
 export default function FilterModal({
     open,

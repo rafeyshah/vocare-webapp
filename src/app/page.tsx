@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import CalendarWeek from "@/components/CalendarWeek"
-import CalendarMonth from "@/components/CalendarMonth"
-import AppointmentList from "@/components/AppointmentList"
-import NewAppointmentModal from "@/components/NewAppointmentModal"
-import FilterModal from "@/components/FilterModal"
+import { Button } from "@/shared/ui/button"
+import CalendarWeek from "@/modules/calendar/CalendarWeek"
+import CalendarMonth from "@/modules/calendar/CalendarMonth"
+import AppointmentList from "@/modules/appointment/components/AppointmentList"
+import NewAppointmentModal from "@/modules/appointment/components/NewAppointmentModal"
+import FilterModal from "@/modules/appointment/components/FilterModal"
 import { Menu } from "lucide-react"
 
 export default function CalendarPage() {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchAppointments } from "@/lib/fetchAppointments";
+import { fetchAppointments } from "@/shared/lib/fetchAppointments";
 
 export default function CalendarWeek({ weekStartDate, filters }: { weekStartDate: Date, filters?: any }) {
     const [appointments, setAppointments] = useState<any[]>([]);
