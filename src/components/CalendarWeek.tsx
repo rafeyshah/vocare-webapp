@@ -41,8 +41,8 @@ export default function CalendarWeek({ weekStartDate, filters }: { weekStartDate
     const hourSlots = Array.from({ length: endHour - startHour + 1 }, (_, i) => startHour + i);
 
     return (
-        <div className="relative">
-            <div className="grid grid-cols-8 border-t border-l text-sm">
+        <div className="overflow-x-auto w-full">
+            <div className="min-w-[900px] grid grid-cols-[60px_repeat(7,1fr)] border-t border-l text-sm">
                 {/* Time Column */}
                 <div className="border-r bg-gray-50 pt-[38px]">
                     {hourSlots.map((hour) => (
@@ -57,7 +57,7 @@ export default function CalendarWeek({ weekStartDate, filters }: { weekStartDate
 
                 {/* Days Columns */}
                 {days.map((day, colIdx) => (
-                    <div key={colIdx} className="border-r border-b relative">
+                    <div key={colIdx} className="border-r border-b relative min-w-[130px]">
                         <div className="sticky top-0 bg-white z-10 p-2 font-medium border-b">
                             {day}, {dateForColumn(colIdx).toLocaleDateString("de-DE", { day: "2-digit", month: "long" })}
                         </div>
