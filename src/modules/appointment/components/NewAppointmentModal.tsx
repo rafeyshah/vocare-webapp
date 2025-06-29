@@ -14,6 +14,7 @@ import { Label } from "@/shared/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
 import { supabase } from "@/shared/lib/supabaseClient";
 import { formatISO } from "date-fns";
+import { Appointment } from "@/shared/types/appointment";
 
 export default function NewAppointmentModal({
     open,
@@ -23,7 +24,7 @@ export default function NewAppointmentModal({
 }: {
     open: boolean;
     setOpen: (value: boolean) => void;
-    existing?: any;
+    existing?: Appointment;
     onRefresh?: () => void;
 }) {
     const [form, setForm] = useState({
@@ -39,7 +40,6 @@ export default function NewAppointmentModal({
     const [categories, setCategories] = useState<{ id: string; label: string }[]>([]);
     const [patients, setPatients] = useState<{ id: string; firstname: string; lastname: string }[]>([]);
     const [loading, setLoading] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
     const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
 
 
@@ -78,22 +78,19 @@ export default function NewAppointmentModal({
 
     const handleSubmit = async () => {
         console.log("Called handle submit");
-        
-        setErrorMsg("");
-        const newTouched: any = {};
+
+        const newTouched: Partial<Record<keyof typeof form, boolean>> = {};
         ["title", "start", "end"].forEach((key) => {
             if (!form[key as keyof typeof form]) newTouched[key] = true;
         });
         setTouched((prev) => ({ ...prev, ...newTouched }));
 
         if (!form.title || !form.start || !form.end) {
-            setErrorMsg("Titel, Start und Ende sind erforderlich.");
             return;
         }
 
 
         if (new Date(form.end) <= new Date(form.start)) {
-            setErrorMsg("Endzeit muss nach Startzeit liegen.");
             return;
         }
 
@@ -101,7 +98,6 @@ export default function NewAppointmentModal({
         const startDate = new Date(form.start);
         const endDate = new Date(form.end);
         if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-            setErrorMsg("Ungültiges Datumsformat.");
             return;
         }
 
@@ -143,7 +139,6 @@ export default function NewAppointmentModal({
 
         if (error) {
             console.error("Supabase insert error:", error);
-            setErrorMsg("Fehler beim Hinzufügen des Termins.");
             return;
         }
 

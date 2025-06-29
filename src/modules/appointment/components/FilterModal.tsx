@@ -12,6 +12,7 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/shared/ui/select";
 import { supabase } from "@/shared/lib/supabaseClient";
+import { Filter } from "@/shared/types/filters";
 
 export default function FilterModal({
     open,
@@ -27,7 +28,7 @@ export default function FilterModal({
         start: string;
         end: string;
     };
-    setFilters: (filters: any) => void;
+    setFilters: (filters: Filter) => void;
 }) {
     const [categories, setCategories] = useState<{ id: string; label: string }[]>([]);
     const [patients, setPatients] = useState<{ id: string; firstname: string; lastname: string }[]>([]);
