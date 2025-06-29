@@ -8,8 +8,7 @@ This solution allows healthcare staff to view, create, edit, and filter appointm
 
 ## 🌐 Live Preview
 
-🔗 [Deployed on Vercel](https://your-vercel-link.vercel.app)  
-_(Replace this with your actual Vercel deployment URL)_
+🔗 [Deployed on Vercel](https://vocare-webapp-qq3m.vercel.app/)  
 
 ---
 
