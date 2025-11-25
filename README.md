@@ -1,7 +1,7 @@
 
 # 🩺 Vocare WebApp – Fullstack Challenge
 
-A full-stack calendar-based appointment management system built as a prototype for the **Vocare Fullstack Developer Challenge**.  
+A full-stack calendar-based appointment management system built as a prototype.  
 This solution allows healthcare staff to view, create, edit, and filter appointments across **monthly**, **weekly**, and **list** views.
 
 ## 🌐 Live Preview
